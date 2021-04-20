@@ -1,30 +1,23 @@
-//*create server*//
 const express = require('express')
 const app = express()
-//*libary*//
-const bodyParser = require("body-parser");
-const cors = require('cors');
-//* server *//
 const port = 4000
-
-app.use(cors())
+/*MIDDLEWARE*/
+const bodyParser = require('body-parser');
+/*CORS*/
+const cors = require('cors');
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+/*emtpy json for user*/
 const user = {
-  email: '',
-  name: '',
-  password: ''
+    email: '',
+    name: '',
+    password: ''
 }
-
-app.post('/register', (req, res) => {
-  user.email = req.body.email
-  user.name = req.body.name
-  user.password = req.body.password
-  res.send({ registered: user });
-})
-
+/*END POINT LOGIN*/
 app.put('/login', (req, res) => {
+  // const formLoginEmail = document.getElementById('form-login-email');
+  // const formLoginPassword = document.getElementById('form-login-password');
   const verifyUser = {
     email: '',
     password: ''
@@ -38,6 +31,14 @@ app.put('/login', (req, res) => {
   else {
     res.status(404).send({ error: 'Invalid credentials' })
   }
+})
+
+/*END POINT REGISTER*/
+app.post('/register', (req, res) => {
+  user.email = req.body.email
+  user.name = req.body.name
+  user.password = req.body.password
+  res.send({ registered: user });
 })
 
 app.listen(port, () => {
